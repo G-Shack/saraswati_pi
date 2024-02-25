@@ -1,0 +1,189 @@
+import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:saraswati_pi/widgets/custom_table_cell.dart';
+import 'package:saraswati_pi/widgets/dimension_button.dart';
+import 'package:saraswati_pi/widgets/dimension_txt_field.dart';
+
+class TableHeader extends StatefulWidget {
+  const TableHeader({super.key});
+
+  @override
+  State<TableHeader> createState() => _TableHeaderState();
+}
+
+class _TableHeaderState extends State<TableHeader> {
+  final columnWidth = {
+    0: const FixedColumnWidth(35.0),
+    1: const FixedColumnWidth(50.0),
+    2: const FixedColumnWidth(50.0),
+    3: const FixedColumnWidth(50.0),
+    4: const FixedColumnWidth(50.0),
+    5: const FixedColumnWidth(40.0),
+    6: const FixedColumnWidth(40.0),
+    7: const FixedColumnWidth(40.0),
+    8: const FixedColumnWidth(50.0),
+    9: const FixedColumnWidth(70.0),
+  };
+  final border = TableBorder.all(color: Colors.white60);
+  List<Map<String, dynamic>> tableValues = [];
+  List<TableRow> rows = [];
+  TextEditingController actLCtrl = TextEditingController();
+  TextEditingController actBCtrl = TextEditingController();
+  TextEditingController thickCtrl = TextEditingController();
+  TextEditingController qtyCtrl = TextEditingController();
+
+  double charge = 32.0;
+  int sr = 0;
+  double area = 0;
+  double amount = 0;
+  double actL = 0;
+  double actB = 0;
+  double chrL = 0;
+  double chrB = 0;
+  double thick = 0;
+  int qty = 0;
+  double rate = 0;
+
+  void addRow() {
+    setState(() {
+      actL = double.parse(actLCtrl.text);
+      actB = double.parse(actBCtrl.text);
+      thick = double.parse(thickCtrl.text);
+      qty = int.parse(qtyCtrl.text);
+      sr++;
+      chrL = actL + charge;
+      chrB = actB + charge;
+
+      rate = thick + 10;
+      area = double.parse(((chrL * chrB * qty) / 92900).toStringAsFixed(2));
+      amount = double.parse(
+          (((chrL * chrB * qty) / 92900) * rate).toStringAsFixed(2));
+      tableValues.add({
+        'sr': sr,
+        'actL': actL,
+        'actB': actB,
+        'chrL': chrL,
+        'charB': chrB,
+        'thick': thick,
+        'rate': rate,
+        'qty': qty,
+        'area': area,
+        'amount': amount
+      });
+      rows.add(TableRow(
+        children: [
+          CustomTableCell(text: '$sr'),
+          CustomTableCell(text: '$actL'),
+          CustomTableCell(text: '$actB'),
+          CustomTableCell(text: '$chrL'),
+          CustomTableCell(text: '$chrB'),
+          CustomTableCell(text: '$thick'),
+          CustomTableCell(text: '$rate'),
+          CustomTableCell(text: '$qty'),
+          CustomTableCell(text: '$area'),
+          CustomTableCell(text: '$amount'),
+        ],
+      ));
+    });
+  }
+
+  void deleteRow() {
+    setState(() {
+      if (sr > 0) {
+        sr--;
+        tableValues.removeLast();
+        rows.removeLast();
+      }
+    });
+  }
+
+  void showTotal() {
+    num totalQty = 0;
+    num totalAmount = 0;
+    num totalArea = 0;
+    for (var total in tableValues) {
+      totalQty += total['qty'];
+      totalAmount += total['amount'];
+      totalArea += total['area'];
+    }
+    Alert(
+      context: context,
+      title: 'Calculated!',
+      desc:
+          'Net Price: $totalAmount\nNet Area: $totalArea\nNet Quantity: $totalQty\n',
+      style: const AlertStyle(
+        backgroundColor: Color(0x35EB1555),
+        descStyle: TextStyle(color: Colors.white),
+        titleStyle: TextStyle(color: Colors.white),
+        isButtonVisible: false,
+      ),
+    ).show();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Table(
+          columnWidths: columnWidth,
+          border: border,
+          children: const [
+            TableRow(
+              children: [
+                CustomTableCell(text: ''),
+                CustomTableCell(text: 'L'),
+                CustomTableCell(text: 'B'),
+                CustomTableCell(text: 'L'),
+                CustomTableCell(text: 'B'),
+                CustomTableCell(text: 'mm'),
+                CustomTableCell(text: '₹/ft'),
+                CustomTableCell(text: 'Nos.'),
+                CustomTableCell(text: 'SQFt.'),
+                CustomTableCell(text: '₹'),
+              ],
+            ),
+          ],
+        ),
+        Table(
+          columnWidths: columnWidth,
+          border: border,
+          children: rows,
+        ),
+        Table(
+          columnWidths: columnWidth,
+          border: border,
+          children: [
+            TableRow(
+              children: [
+                const TableCell(child: SizedBox()),
+                DimensionTxtField(controller: actLCtrl),
+                DimensionTxtField(controller: actBCtrl),
+                const TableCell(child: SizedBox()),
+                const TableCell(child: SizedBox()),
+                DimensionTxtField(controller: thickCtrl),
+                const TableCell(child: SizedBox()),
+                DimensionTxtField(controller: qtyCtrl),
+                const TableCell(child: SizedBox()),
+                const TableCell(child: SizedBox()),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            DimensionButton(btnTxt: 'Add Row', fun: addRow),
+            const SizedBox(
+              width: 20,
+            ),
+            DimensionButton(btnTxt: 'Delete Row', fun: deleteRow),
+            const SizedBox(
+              width: 20,
+            ),
+            DimensionButton(btnTxt: 'Show Total', fun: showTotal),
+          ],
+        ),
+      ],
+    );
+  }
+}
