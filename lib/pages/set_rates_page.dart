@@ -92,6 +92,15 @@ class _SetRatesPageState extends State<SetRatesPage> {
         rates = updateRates;
       });
     }
+    var savedSnack = const SnackBar(
+      content: Text(
+        'Saved!',
+      ),
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(seconds: 1, milliseconds: 500),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(savedSnack);
+    FocusManager.instance.primaryFocus?.unfocus();
     prefs.setString('rates', jsonEncode(rates));
   }
 

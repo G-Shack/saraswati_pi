@@ -164,14 +164,14 @@ class _StartPageState extends State<StartPage> {
                                     billNo: billNo.text,
                                   )));
                     } else {
-                      var savedSnack = const SnackBar(
+                      var emptySnack = const SnackBar(
                         content: Text(
                           'Bill no. is empty!',
                         ),
                         behavior: SnackBarBehavior.floating,
                         duration: Duration(seconds: 1, milliseconds: 500),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(savedSnack);
+                      ScaffoldMessenger.of(context).showSnackBar(emptySnack);
                       FocusManager.instance.primaryFocus?.unfocus();
                     }
                   },
