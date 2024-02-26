@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:saraswati_pi/widgets/custom_table_cell.dart';
 import 'package:saraswati_pi/widgets/dimension_button.dart';
 import 'package:saraswati_pi/widgets/dimension_txt_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TableHeader extends StatefulWidget {
   const TableHeader({super.key});
@@ -44,6 +47,43 @@ class _TableHeaderState extends State<TableHeader> {
   int qty = 0;
   double rate = 0;
 
+  double getRates() {
+    switch (thick) {
+      case 2:
+        {
+          return double.parse(rates['2mm'].toString());
+        }
+      case 4:
+        {
+          return double.parse(rates['4mm'].toString());
+        }
+      case 5:
+        {
+          return double.parse(rates['5mm'].toString());
+        }
+      case 6:
+        {
+          return double.parse(rates['6mm'].toString());
+        }
+      case 8:
+        {
+          return double.parse(rates['8mm'].toString());
+        }
+      case 10:
+        {
+          return double.parse(rates['10mm'].toString());
+        }
+      case 12:
+        {
+          return double.parse(rates['12mm'].toString());
+        }
+      default:
+        {
+          return 0;
+        }
+    }
+  }
+
   void addRow() {
     setState(() {
       actL = double.parse(actLCtrl.text);
@@ -54,7 +94,7 @@ class _TableHeaderState extends State<TableHeader> {
       chrL = actL + charge;
       chrB = actB + charge;
 
-      rate = thick + 10;
+      rate = getRates();
       area = double.parse(((chrL * chrB * qty) / 92900).toStringAsFixed(2));
       amount = double.parse(
           (((chrL * chrB * qty) / 92900) * rate).toStringAsFixed(2));
@@ -118,6 +158,29 @@ class _TableHeaderState extends State<TableHeader> {
         isButtonVisible: false,
       ),
     ).show();
+  }
+
+  Map<String, Object> rates = {};
+
+  void loadRates() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var ratesString = prefs.getString('rates');
+    rates = Map<String, Object>.from(jsonDecode(ratesString!));
+  }
+
+  @override
+  void initState() {
+    loadRates();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    actLCtrl.dispose();
+    actBCtrl.dispose();
+    thickCtrl.dispose();
+    qtyCtrl.dispose();
+    super.dispose();
   }
 
   @override
