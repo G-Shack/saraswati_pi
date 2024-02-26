@@ -8,7 +8,8 @@ import 'package:saraswati_pi/widgets/dimension_txt_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TableHeader extends StatefulWidget {
-  const TableHeader({super.key});
+  final String dimension;
+  const TableHeader({super.key, required this.dimension});
 
   @override
   State<TableHeader> createState() => _TableHeaderState();
@@ -35,7 +36,9 @@ class _TableHeaderState extends State<TableHeader> {
   TextEditingController thickCtrl = TextEditingController();
   TextEditingController qtyCtrl = TextEditingController();
 
-  double charge = 32.0;
+  String dimension = "";
+
+  double charge = 0;
   int sr = 0;
   double area = 0;
   double amount = 0;
@@ -46,48 +49,98 @@ class _TableHeaderState extends State<TableHeader> {
   double thick = 0;
   int qty = 0;
   double rate = 0;
+  int divideVal = 0;
 
   double getRates() {
     switch (thick) {
       case 2:
-        {
-          return double.parse(rates['2mm'].toString());
-        }
+        return double.parse(rates['2mm'].toString());
+
       case 4:
-        {
-          return double.parse(rates['4mm'].toString());
-        }
+        return double.parse(rates['4mm'].toString());
+
       case 5:
-        {
-          return double.parse(rates['5mm'].toString());
-        }
+        return double.parse(rates['5mm'].toString());
+
       case 6:
-        {
-          return double.parse(rates['6mm'].toString());
-        }
+        return double.parse(rates['6mm'].toString());
+
       case 8:
-        {
-          return double.parse(rates['8mm'].toString());
-        }
+        return double.parse(rates['8mm'].toString());
+
       case 10:
-        {
-          return double.parse(rates['10mm'].toString());
-        }
+        return double.parse(rates['10mm'].toString());
+
       case 12:
-        {
-          return double.parse(rates['12mm'].toString());
-        }
+        return double.parse(rates['12mm'].toString());
+
       default:
-        {
-          return 0;
+        return 0;
+    }
+  }
+
+  double onSubmitL() {
+    String fraction = actLCtrl.text;
+    double decimal = 0;
+
+    if (fraction.contains('/')) {
+      List<String> parts = fraction.split(' ');
+      if (parts.length == 2) {
+        int whole = int.tryParse(parts[0]) ?? 0;
+        List<String> fracParts = parts[1].split('/');
+        if (fracParts.length == 2) {
+          int numerator = int.tryParse(fracParts[0]) ?? 0;
+          int denominator = int.tryParse(fracParts[1]) ?? 1;
+          decimal = whole + numerator / denominator;
         }
+      }
+      print('Decimal value: $decimal');
+      return decimal;
+    } else {
+      decimal = double.tryParse(fraction) ?? 0.0;
+      print('Decimal value: $decimal');
+      return decimal;
+    }
+  }
+
+  double onSubmitB() {
+    String fraction = actBCtrl.text;
+    double decimal = 0;
+
+    if (fraction.contains('/')) {
+      List<String> parts = fraction.split(' ');
+      if (parts.length == 2) {
+        int whole = int.tryParse(parts[0]) ?? 0;
+        List<String> fracParts = parts[1].split('/');
+        if (fracParts.length == 2) {
+          int numerator = int.tryParse(fracParts[0]) ?? 0;
+          int denominator = int.tryParse(fracParts[1]) ?? 1;
+          decimal = whole + numerator / denominator;
+        }
+      }
+      print('Decimal value: $decimal');
+      return decimal;
+    } else {
+      decimal = double.tryParse(fraction) ?? 0.0;
+      print('Decimal value: $decimal');
+      return decimal;
     }
   }
 
   void addRow() {
     setState(() {
-      actL = double.parse(actLCtrl.text);
-      actB = double.parse(actBCtrl.text);
+      if (dimension == 'inch') {
+        actL = onSubmitL();
+        actB = onSubmitB();
+        charge = 1.26;
+        divideVal = 144;
+      } else {
+        actL = double.parse(actLCtrl.text);
+        actB = double.parse(actBCtrl.text);
+        charge = 32;
+        divideVal = 92900;
+      }
+
       thick = double.parse(thickCtrl.text);
       qty = int.parse(qtyCtrl.text);
       sr++;
@@ -95,9 +148,9 @@ class _TableHeaderState extends State<TableHeader> {
       chrB = actB + charge;
 
       rate = getRates();
-      area = double.parse(((chrL * chrB * qty) / 92900).toStringAsFixed(2));
+      area = double.parse(((chrL * chrB * qty) / divideVal).toStringAsFixed(2));
       amount = double.parse(
-          (((chrL * chrB * qty) / 92900) * rate).toStringAsFixed(2));
+          (((chrL * chrB * qty) / divideVal) * rate).toStringAsFixed(2));
       tableValues.add({
         'sr': sr,
         'actL': actL,
@@ -170,6 +223,7 @@ class _TableHeaderState extends State<TableHeader> {
 
   @override
   void initState() {
+    dimension = widget.dimension;
     loadRates();
     super.initState();
   }

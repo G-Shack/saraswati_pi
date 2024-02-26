@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saraswati_pi/widgets/custom_table_cell.dart';
 
 class TableTemplate extends StatelessWidget {
-  const TableTemplate({super.key});
+  final String dimension;
+  const TableTemplate({super.key, required this.dimension});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +19,12 @@ class TableTemplate extends StatelessWidget {
         7: FixedColumnWidth(70.0),
       },
       border: TableBorder.all(color: Colors.white),
-      children: const [
+      children: [
         TableRow(
           children: [
             CustomTableCell(text: 'Sr.'),
-            CustomTableCell(text: 'Act Size (mm)'),
-            CustomTableCell(text: 'Chr Size (mm)'),
+            CustomTableCell(text: 'Act Size ($dimension)'),
+            CustomTableCell(text: 'Chr Size ($dimension)'),
             CustomTableCell(text: 'Thick'),
             CustomTableCell(text: 'Rate'),
             CustomTableCell(text: 'Qty'),

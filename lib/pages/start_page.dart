@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saraswati_pi/pages/dimensions_page_inch.dart';
-import 'package:saraswati_pi/pages/dimensions_page_mm.dart';
+import 'package:saraswati_pi/pages/dimensions_page.dart';
 import 'package:saraswati_pi/widgets/app_drawer.dart';
 
 class StartPage extends StatefulWidget {
@@ -40,7 +39,7 @@ class _StartPageState extends State<StartPage> {
       appBar: AppBar(
         title: const Text("Glass PI"),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -150,16 +149,32 @@ class _StartPageState extends State<StartPage> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    if (selectedUnit == "inch") {
+                    if (selectedUnit == "inch" && billNo.text != "") {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DimensionsPageInch()));
+                              builder: (context) => DimensionsPage(
+                                    dimension: selectedUnit,
+                                    billNo: billNo.text,
+                                  )));
+                    } else if (selectedUnit == "mm" && billNo.text != "") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DimensionsPage(
+                                    dimension: selectedUnit,
+                                    billNo: billNo.text,
+                                  )));
                     } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DimensionsPageMm()));
+                      var savedSnack = const SnackBar(
+                        content: Text(
+                          'Bill no. is empty!',
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 1, milliseconds: 500),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(savedSnack);
+                      FocusManager.instance.primaryFocus?.unfocus();
                     }
                   },
                   style: ElevatedButton.styleFrom(
