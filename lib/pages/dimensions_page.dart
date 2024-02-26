@@ -15,7 +15,7 @@ class DimensionsPage extends StatelessWidget {
         title: Text('Dimension ($dimension)'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SingleChildScrollView(

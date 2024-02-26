@@ -13,12 +13,12 @@ class SetRatesTxtField extends StatelessWidget {
           controller: controller,
           decoration: InputDecoration(
               labelText: name,
-              labelStyle: TextStyle(fontSize: 18),
-              border: OutlineInputBorder()),
-          style: TextStyle(fontSize: 18),
+              labelStyle: const TextStyle(fontSize: 18),
+              border: const OutlineInputBorder()),
+          style: const TextStyle(fontSize: 18),
           keyboardType: TextInputType.datetime,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

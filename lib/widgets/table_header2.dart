@@ -79,8 +79,8 @@ class _TableHeaderState extends State<TableHeader> {
     }
   }
 
-  double onSubmitL() {
-    String fraction = actLCtrl.text;
+  double onSubmit(String text) {
+    String fraction = text;
     double decimal = 0;
 
     if (fraction.contains('/')) {
@@ -94,35 +94,9 @@ class _TableHeaderState extends State<TableHeader> {
           decimal = whole + numerator / denominator;
         }
       }
-      print('Decimal value: $decimal');
       return decimal;
     } else {
       decimal = double.tryParse(fraction) ?? 0.0;
-      print('Decimal value: $decimal');
-      return decimal;
-    }
-  }
-
-  double onSubmitB() {
-    String fraction = actBCtrl.text;
-    double decimal = 0;
-
-    if (fraction.contains('/')) {
-      List<String> parts = fraction.split(' ');
-      if (parts.length == 2) {
-        int whole = int.tryParse(parts[0]) ?? 0;
-        List<String> fracParts = parts[1].split('/');
-        if (fracParts.length == 2) {
-          int numerator = int.tryParse(fracParts[0]) ?? 0;
-          int denominator = int.tryParse(fracParts[1]) ?? 1;
-          decimal = whole + numerator / denominator;
-        }
-      }
-      print('Decimal value: $decimal');
-      return decimal;
-    } else {
-      decimal = double.tryParse(fraction) ?? 0.0;
-      print('Decimal value: $decimal');
       return decimal;
     }
   }
@@ -130,8 +104,8 @@ class _TableHeaderState extends State<TableHeader> {
   void addRow() {
     setState(() {
       if (dimension == 'inch') {
-        actL = onSubmitL();
-        actB = onSubmitB();
+        actL = onSubmit(actLCtrl.text);
+        actB = onSubmit(actBCtrl.text);
         charge = 1.26;
         divideVal = 144;
       } else {

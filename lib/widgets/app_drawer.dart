@@ -17,25 +17,25 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('H O M E'),
+            leading: const Icon(Icons.home),
+            title: const Text('H O M E'),
             onTap: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StartPage(),
+                  builder: (context) => const StartPage(),
                 ),
               );
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('S E T  R A T E S'),
+            leading: const Icon(Icons.settings),
+            title: const Text('S E T   R A T E S'),
             onTap: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SetRatesPage(),
+                  builder: (context) => const SetRatesPage(),
                 ),
               );
             },

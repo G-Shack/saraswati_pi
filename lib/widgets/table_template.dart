@@ -22,14 +22,14 @@ class TableTemplate extends StatelessWidget {
       children: [
         TableRow(
           children: [
-            CustomTableCell(text: 'Sr.'),
+            const CustomTableCell(text: 'Sr.'),
             CustomTableCell(text: 'Act Size ($dimension)'),
             CustomTableCell(text: 'Chr Size ($dimension)'),
-            CustomTableCell(text: 'Thick'),
-            CustomTableCell(text: 'Rate'),
-            CustomTableCell(text: 'Qty'),
-            CustomTableCell(text: 'Area'),
-            CustomTableCell(text: 'Amount'),
+            const CustomTableCell(text: 'Thick'),
+            const CustomTableCell(text: 'Rate'),
+            const CustomTableCell(text: 'Qty'),
+            const CustomTableCell(text: 'Area'),
+            const CustomTableCell(text: 'Amount'),
           ],
         ),
       ],

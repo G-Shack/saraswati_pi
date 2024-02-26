@@ -13,22 +13,22 @@ class _StartPageState extends State<StartPage> {
   TextEditingController billNo = TextEditingController();
   String selectedUnit = "inch";
   Color mmText = Colors.white;
-  Color inchText = Colors.black;
+  Color inchText = const Color(0xFF090d23);
   Color inchButton = Colors.amberAccent;
-  Color mmButton = Colors.black;
+  Color mmButton = const Color(0xFF090d23);
 
   void setUnit(String unit) {
     if (unit == "inch") {
       selectedUnit = "inch";
       mmText = Colors.white;
-      inchText = Colors.black;
+      inchText = const Color(0xFF090d23);
       inchButton = Colors.amberAccent;
-      mmButton = Colors.black;
+      mmButton = const Color(0xFF090d23);
     } else {
       selectedUnit = "mm";
-      mmText = Colors.black;
+      mmText = const Color(0xFF090d23);
       inchText = Colors.white;
-      inchButton = Colors.black;
+      inchButton = const Color(0xFF090d23);
       mmButton = Colors.amberAccent;
     }
   }
@@ -74,7 +74,6 @@ class _StartPageState extends State<StartPage> {
                       onTap: () {
                         setState(() {
                           setUnit("inch");
-                          print(selectedUnit.toString());
                         });
                       },
                       child: Container(
@@ -99,7 +98,6 @@ class _StartPageState extends State<StartPage> {
                       onTap: () {
                         setState(() {
                           setUnit("mm");
-                          print(selectedUnit.toString());
                         });
                       },
                       child: Container(

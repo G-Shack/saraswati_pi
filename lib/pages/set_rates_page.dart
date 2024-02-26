@@ -99,9 +99,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rates'),
+        title: const Text('Rates'),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: SingleChildScrollView(
@@ -112,7 +112,7 @@ class _SetRatesPageState extends State<SetRatesPage> {
                 'Set Rates here!',
                 style: TextStyle(fontSize: 22),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SetRatesTxtField(controller: controller2mm, name: '2mm'),
               SetRatesTxtField(controller: controller4mm, name: '4mm'),
               SetRatesTxtField(controller: controller5mm, name: '5mm'),
