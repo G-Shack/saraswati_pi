@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saraswati_pi/pages/dimensions_page_inch.dart';
 import 'package:saraswati_pi/pages/dimensions_page_mm.dart';
+import 'package:saraswati_pi/widgets/app_drawer.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -39,7 +40,7 @@ class _StartPageState extends State<StartPage> {
       appBar: AppBar(
         title: const Text("Glass PI"),
       ),
-      //TODO drawer: Drawer(),
+      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -162,7 +163,7 @@ class _StartPageState extends State<StartPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0x88EB1555)),
+                      backgroundColor: const Color(0xDDEB1555)),
                   child: const Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
