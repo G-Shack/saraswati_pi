@@ -117,7 +117,7 @@ class _SetRatesPageState extends State<SetRatesPage> {
         title: const Text('Rates'),
         actions: [
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete,
                 color: Colors.white,
               ),
