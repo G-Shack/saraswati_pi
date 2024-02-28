@@ -32,6 +32,10 @@ class DimensionsPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.save),
+      ),
     );
   }
 }

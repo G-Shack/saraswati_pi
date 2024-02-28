@@ -29,6 +29,9 @@ class _TableHeaderState extends State<TableHeader> {
     9: const FixedColumnWidth(70.0),
   };
   final border = TableBorder.all(color: Colors.white60);
+
+  List<double> thickList = [2, 4, 5, 6, 8, 10, 12];
+
   List<Map<String, dynamic>> tableValues = [];
   List<TableRow> rows = [];
   TextEditingController actLCtrl = TextEditingController();
@@ -103,54 +106,61 @@ class _TableHeaderState extends State<TableHeader> {
 
   void addRow() {
     setState(() {
-      if (dimension == 'inch') {
+      if (thickList.contains(double.parse(thickCtrl.text))) {
         actL = onSubmit(actLCtrl.text);
         actB = onSubmit(actBCtrl.text);
-        charge = 1.26;
-        divideVal = 144;
+        if (dimension == 'inch') {
+          charge = 1.26;
+          divideVal = 144;
+        } else {
+          charge = 32;
+          divideVal = 92900;
+        }
+        thick = double.parse(thickCtrl.text);
+        qty = int.parse(qtyCtrl.text);
+        sr++;
+        chrL = actL + charge;
+        chrB = actB + charge;
+
+        rate = getRates();
+        area = ((chrL * chrB * qty) / divideVal);
+        amount = (((chrL * chrB * qty) / divideVal) * rate);
+        tableValues.add({
+          'sr': sr,
+          'actL': actL,
+          'actB': actB,
+          'chrL': chrL,
+          'charB': chrB,
+          'thick': thick,
+          'rate': rate,
+          'qty': qty,
+          'area': area,
+          'amount': amount
+        });
+        rows.add(TableRow(
+          children: [
+            CustomTableCell(text: '$sr'),
+            CustomTableCell(text: '$actL'),
+            CustomTableCell(text: '$actB'),
+            CustomTableCell(text: '$chrL'),
+            CustomTableCell(text: '$chrB'),
+            CustomTableCell(text: '$thick'),
+            CustomTableCell(text: '$rate'),
+            CustomTableCell(text: '$qty'),
+            CustomTableCell(text: area.toStringAsFixed(2)),
+            CustomTableCell(text: amount.toStringAsFixed(2)),
+          ],
+        ));
       } else {
-        actL = double.parse(actLCtrl.text);
-        actB = double.parse(actBCtrl.text);
-        charge = 32;
-        divideVal = 92900;
+        var wrongThickSnack = const SnackBar(
+          content: Text(
+            'wrong thickness.',
+          ),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 1, milliseconds: 500),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(wrongThickSnack);
       }
-
-      thick = double.parse(thickCtrl.text);
-      qty = int.parse(qtyCtrl.text);
-      sr++;
-      chrL = actL + charge;
-      chrB = actB + charge;
-
-      rate = getRates();
-      area = double.parse(((chrL * chrB * qty) / divideVal).toStringAsFixed(2));
-      amount = double.parse(
-          (((chrL * chrB * qty) / divideVal) * rate).toStringAsFixed(2));
-      tableValues.add({
-        'sr': sr,
-        'actL': actL,
-        'actB': actB,
-        'chrL': chrL,
-        'charB': chrB,
-        'thick': thick,
-        'rate': rate,
-        'qty': qty,
-        'area': area,
-        'amount': amount
-      });
-      rows.add(TableRow(
-        children: [
-          CustomTableCell(text: '$sr'),
-          CustomTableCell(text: '$actL'),
-          CustomTableCell(text: '$actB'),
-          CustomTableCell(text: '$chrL'),
-          CustomTableCell(text: '$chrB'),
-          CustomTableCell(text: '$thick'),
-          CustomTableCell(text: '$rate'),
-          CustomTableCell(text: '$qty'),
-          CustomTableCell(text: '$area'),
-          CustomTableCell(text: '$amount'),
-        ],
-      ));
     });
   }
 
@@ -169,15 +179,17 @@ class _TableHeaderState extends State<TableHeader> {
     num totalAmount = 0;
     num totalArea = 0;
     for (var total in tableValues) {
-      totalQty += total['qty'];
       totalAmount += total['amount'];
       totalArea += total['area'];
+      totalQty += total['qty'];
     }
+    String strTotalAmt = totalAmount.toStringAsFixed(2);
+    String strTotalArea = totalArea.toStringAsFixed(2);
     Alert(
       context: context,
       title: 'Calculated!',
       desc:
-          'Net Price: $totalAmount\nNet Area: $totalArea\nNet Quantity: $totalQty\n',
+          'Net Price: $strTotalAmt\nNet Area: $strTotalArea\nNet Quantity: $totalQty\n',
       style: const AlertStyle(
         backgroundColor: Color(0x35EB1555),
         descStyle: TextStyle(color: Colors.white),
@@ -187,7 +199,15 @@ class _TableHeaderState extends State<TableHeader> {
     ).show();
   }
 
-  Map<String, Object> rates = {};
+  Map<String, Object> rates = {
+    '2mm': 1,
+    '4mm': 1,
+    '5mm': 1,
+    '6mm': 1,
+    '8mm': 1,
+    '10mm': 1,
+    '12mm': 1,
+  };
 
   void loadRates() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

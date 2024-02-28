@@ -104,15 +104,30 @@ class _SetRatesPageState extends State<SetRatesPage> {
     prefs.setString('rates', jsonEncode(rates));
   }
 
+  void clearRates() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    loadRates();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rates'),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+              onPressed: clearRates),
+        ],
       ),
       drawer: const AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.only(
+            left: 32.0, right: 32.0, top: 12.0, bottom: 12.0),
         child: SingleChildScrollView(
           reverse: true,
           child: Column(
