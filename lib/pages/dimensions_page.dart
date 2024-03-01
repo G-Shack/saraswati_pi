@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:saraswati_pi/services/pdf_service.dart';
 import 'package:saraswati_pi/widgets/table_template.dart';
 import 'package:saraswati_pi/widgets/table_header2.dart';
 
 class DimensionsPage extends StatelessWidget {
   final String billNo;
   final String dimension;
-  const DimensionsPage(
-      {super.key, required this.dimension, required this.billNo});
-
+  DimensionsPage({super.key, required this.dimension, required this.billNo});
+  final PdfService pdfService = PdfService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +33,11 @@ class DimensionsPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.save),
+        onPressed: () async {
+          final bill = await pdfService.generatePdf(billNo);
+          pdfService.savePdfFile("BillNO$billNo", bill);
+        },
+        child: const Icon(Icons.save),
       ),
     );
   }
