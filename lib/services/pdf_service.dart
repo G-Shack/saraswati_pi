@@ -72,7 +72,8 @@ class PdfService {
                 padding: const pw.EdgeInsets.all(2),
                 child: pw.Expanded(
                     child: pw.Text("Customer Name: $billName",
-                        style: const pw.TextStyle(fontSize: 10)))),
+                        style: pw.TextStyle(
+                            fontSize: 10, fontWeight: pw.FontWeight.bold)))),
             pw.Padding(
                 padding: const pw.EdgeInsets.all(2),
                 child: pw.Expanded(
@@ -99,28 +100,52 @@ class PdfService {
             children: [
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Sr."))),
+                  child: pw.Center(
+                      child: pw.Text("Sr.",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Act Size ($dimension)"))),
+                  child: pw.Center(
+                      child: pw.Text("Act Size ($dimension)",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Chr Size ($dimension)"))),
+                  child: pw.Center(
+                      child: pw.Text("Chr Size ($dimension)",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Thick"))),
+                  child: pw.Center(
+                      child: pw.Text("Thick",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Rate"))),
+                  child: pw.Center(
+                      child: pw.Text("Rate",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Qty"))),
+                  child: pw.Center(
+                      child: pw.Text("Qty",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Area"))),
+                  child: pw.Center(
+                      child: pw.Text("Area",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Amount"))),
+                  child: pw.Center(
+                      child: pw.Text("Amount",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
             ],
           ),
         ],

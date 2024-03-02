@@ -12,7 +12,7 @@ class TableTemplate extends StatelessWidget {
         0: FixedColumnWidth(35.0),
         1: FixedColumnWidth(100.0),
         2: FixedColumnWidth(100.0),
-        3: FixedColumnWidth(40.0),
+        3: FixedColumnWidth(50.0),
         4: FixedColumnWidth(40.0),
         5: FixedColumnWidth(40.0),
         6: FixedColumnWidth(50.0),

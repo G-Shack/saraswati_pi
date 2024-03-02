@@ -24,7 +24,7 @@ class _TableHeaderState extends State<TableHeader> {
     2: const FixedColumnWidth(50.0),
     3: const FixedColumnWidth(50.0),
     4: const FixedColumnWidth(50.0),
-    5: const FixedColumnWidth(40.0),
+    5: const FixedColumnWidth(50.0),
     6: const FixedColumnWidth(40.0),
     7: const FixedColumnWidth(40.0),
     8: const FixedColumnWidth(50.0),
@@ -211,6 +211,8 @@ class _TableHeaderState extends State<TableHeader> {
 
   Map<String, Object> rates = {
     '2mm': 1,
+    '3mm': 1,
+    '3.5mm': 1,
     '4mm': 1,
     '5mm': 1,
     '6mm': 1,

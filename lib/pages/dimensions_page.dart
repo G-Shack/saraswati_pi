@@ -41,7 +41,7 @@ class DimensionsPage extends StatelessWidget {
             var tableValues = provider.tableValues;
             final bill =
                 await pdfService.generatePdf(billName, tableValues, dimension);
-            pdfService.savePdfFile("Bill$billName", bill);
+            pdfService.savePdfFile("Bill $billName", bill);
           },
           child: const Icon(Icons.save),
         ),
