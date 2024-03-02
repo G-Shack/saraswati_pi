@@ -19,7 +19,7 @@ dependencies:
   pdf:
   path_provider:
   open_file:
-
+  provider:
 dev_dependencies:
   flutter_test:
     sdk: flutter

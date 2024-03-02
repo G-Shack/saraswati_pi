@@ -6,7 +6,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfService {
-  Future<Uint8List> generatePdf(String billNo) async {
+  Future<Uint8List> generatePdf(String billNo,
+      List<Map<String, dynamic>> tableValues, String dimension) async {
     final pdf = pw.Document();
     List<pw.Widget> pageWidgets = [];
     final logo =
@@ -77,10 +78,198 @@ class PdfService {
                         style: const pw.TextStyle(fontSize: 10)))),
           ],
         ));
+    pw.Table tableHeader() {
+      return pw.Table(
+        columnWidths: const {
+          0: pw.FixedColumnWidth(35.0),
+          1: pw.FixedColumnWidth(100.0),
+          2: pw.FixedColumnWidth(100.0),
+          3: pw.FixedColumnWidth(40.0),
+          4: pw.FixedColumnWidth(40.0),
+          5: pw.FixedColumnWidth(40.0),
+          6: pw.FixedColumnWidth(50.0),
+          7: pw.FixedColumnWidth(70.0),
+        },
+        border: pw.TableBorder.all(),
+        children: [
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Sr."))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Act Size ($dimension)"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Chr Size ($dimension)"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Thick"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Rate"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Qty"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Area"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Amount"))),
+            ],
+          ),
+        ],
+      );
+    }
+
+    pw.Table table() {
+      List<pw.TableRow> rows = [];
+      num totalQty = 0;
+      num totalAmount = 0;
+      num totalArea = 0;
+      for (var value in tableValues) {
+        totalAmount += value["amount"];
+        totalArea += value["area"];
+        totalQty += value["qty"];
+        rows.add(pw.TableRow(
+          children: [
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["sr"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["actL"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["actB"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["chrL"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["charB"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["thick"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["rate"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(value["qty"].toString()))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text(value["area"].toStringAsFixed(2)))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text(value["amount"].toStringAsFixed(2)))),
+          ],
+        ));
+      }
+      return pw.Table(
+        columnWidths: {
+          0: const pw.FixedColumnWidth(35.0),
+          1: const pw.FixedColumnWidth(50.0),
+          2: const pw.FixedColumnWidth(50.0),
+          3: const pw.FixedColumnWidth(50.0),
+          4: const pw.FixedColumnWidth(50.0),
+          5: const pw.FixedColumnWidth(40.0),
+          6: const pw.FixedColumnWidth(40.0),
+          7: const pw.FixedColumnWidth(40.0),
+          8: const pw.FixedColumnWidth(50.0),
+          9: const pw.FixedColumnWidth(70.0),
+        },
+        border: pw.TableBorder.all(),
+        children: [
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text(""))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("L"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("B"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("L"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("B"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("mm"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Rs./ft"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Nos."))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("SQFt."))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("Rs."))),
+            ],
+          ),
+          ...rows,
+          pw.TableRow(children: [
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(child: pw.Text(""))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text("TOTAL",
+                        style: pw.TextStyle(
+                            fontSize: 10, fontWeight: pw.FontWeight.bold)))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text(totalQty.toString(),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text(totalArea.toStringAsFixed(2),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            pw.Padding(
+                padding: const pw.EdgeInsets.all(2),
+                child: pw.Center(
+                    child: pw.Text(totalAmount.toStringAsFixed(2),
+                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+          ]),
+        ],
+      );
+    }
 
     pageWidgets.add(logoArea);
     pageWidgets.add(title);
     pageWidgets.add(title2);
+    pageWidgets.add(tableHeader());
+    pageWidgets.add(table());
     pdf.addPage(pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context content) {

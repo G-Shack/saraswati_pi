@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:saraswati_pi/provider/table_values_provider.dart';
 import 'package:saraswati_pi/widgets/custom_table_cell.dart';
 import 'package:saraswati_pi/widgets/dimension_button.dart';
 import 'package:saraswati_pi/widgets/dimension_txt_field.dart';
@@ -106,6 +108,7 @@ class _TableHeaderState extends State<TableHeader> {
 
   void addRow() {
     setState(() {
+      context.read<TableValuesProvider>().changeTableValues(tableValues);
       if (thickList.contains(double.parse(thickCtrl.text))) {
         actL = onSubmit(actLCtrl.text);
         actB = onSubmit(actBCtrl.text);
@@ -166,6 +169,7 @@ class _TableHeaderState extends State<TableHeader> {
 
   void deleteRow() {
     setState(() {
+      context.read<TableValuesProvider>().changeTableValues(tableValues);
       if (sr > 0) {
         sr--;
         tableValues.removeLast();
