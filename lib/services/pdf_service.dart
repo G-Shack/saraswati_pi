@@ -9,6 +9,9 @@ class PdfService {
   Future<Uint8List> generatePdf(String billNo,
       List<Map<String, dynamic>> tableValues, String dimension) async {
     final pdf = pw.Document();
+    num totalQty = 0;
+    num totalAmount = 0;
+    num totalArea = 0;
     List<pw.Widget> pageWidgets = [];
     final logo =
         (await rootBundle.load("images/logo.png")).buffer.asUint8List();
@@ -126,9 +129,6 @@ class PdfService {
 
     pw.Table table() {
       List<pw.TableRow> rows = [];
-      num totalQty = 0;
-      num totalAmount = 0;
-      num totalArea = 0;
       for (var value in tableValues) {
         totalAmount += value["amount"];
         totalArea += value["area"];
@@ -258,9 +258,150 @@ class PdfService {
             pw.Padding(
                 padding: const pw.EdgeInsets.all(2),
                 child: pw.Center(
-                    child: pw.Text(totalAmount.toStringAsFixed(2),
+                    child: pw.Text("",
                         style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
           ]),
+        ],
+      );
+    }
+
+    pw.Table tableFooter() {
+      num totBeforeTax = totalAmount + 200;
+      num taxAmt = 0.09 * totBeforeTax;
+      num grandTotal = totBeforeTax + (2 * taxAmt);
+      return pw.Table(
+        columnWidths: const {
+          0: pw.FixedColumnWidth(90.0),
+          1: pw.FixedColumnWidth(160.0),
+          2: pw.FixedColumnWidth(145.0),
+          3: pw.FixedColumnWidth(60.0),
+        },
+        border: pw.TableBorder.all(),
+        children: [
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("GST NO:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("27AVHPT6781H1ZW",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text("SUB TOTAL",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text(totalAmount.toStringAsFixed(2),
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("A/C Name:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("SARASWATI ENTERPRISES")),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("ADMIN CHARGES"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("200"))),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("A/C Number:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("758805000007",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text("TOTAL BEFORE TAX",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text(totBeforeTax.toStringAsFixed(2),
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("A/C TYPE:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("CURRENT ACCOUNT")),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("CGST @ 9%"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text(taxAmt.toStringAsFixed(2)))),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("BRANCH:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("ICICI BANK",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text("SGST @ 9%"))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(child: pw.Text(taxAmt.toStringAsFixed(2)))),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("PAYMENT",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text("GRAND TOTAL",
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Center(
+                      child: pw.Text(grandTotal.toStringAsFixed(2),
+                          style:
+                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            ],
+          ),
         ],
       );
     }
@@ -270,6 +411,8 @@ class PdfService {
     pageWidgets.add(title2);
     pageWidgets.add(tableHeader());
     pageWidgets.add(table());
+    pageWidgets.add(tableFooter());
+
     pdf.addPage(pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context content) {
