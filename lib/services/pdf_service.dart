@@ -1,7 +1,4 @@
-import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -445,14 +442,5 @@ class PdfService {
         }));
 
     return pdf.save();
-  }
-
-  Future<void> savePdfFile(String fileName, Uint8List byteList) async {
-    final output = await getTemporaryDirectory();
-    var filePath = "${output.path}/$fileName.pdf";
-    final file = File(filePath);
-    print(filePath);
-    await file.writeAsBytes(byteList);
-    await OpenFile.open(filePath);
   }
 }

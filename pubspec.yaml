@@ -17,9 +17,9 @@ dependencies:
   rflutter_alert:
   shared_preferences: ^2.2.2
   pdf:
-  path_provider:
   open_file:
   provider:
+  printing: ^5.12.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

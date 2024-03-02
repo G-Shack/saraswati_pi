@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saraswati_pi/pages/pdf_preview_page.dart';
 import 'package:saraswati_pi/provider/table_values_provider.dart';
 import 'package:saraswati_pi/services/pdf_service.dart';
 import 'package:saraswati_pi/widgets/table_template.dart';
@@ -41,7 +42,14 @@ class DimensionsPage extends StatelessWidget {
             var tableValues = provider.tableValues;
             final bill =
                 await pdfService.generatePdf(billName, tableValues, dimension);
-            pdfService.savePdfFile("Bill $billName", bill);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => PdfPreviewPage(
+                  bill: bill,
+                  billName: billName,
+                ),
+              ),
+            );
           },
           child: const Icon(Icons.save),
         ),
