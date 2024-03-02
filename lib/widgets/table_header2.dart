@@ -32,7 +32,7 @@ class _TableHeaderState extends State<TableHeader> {
   };
   final border = TableBorder.all(color: Colors.white60);
 
-  List<double> thickList = [2, 4, 5, 6, 8, 10, 12];
+  List<double> thickList = [2, 3, 3.5, 4, 5, 6, 8, 10, 12];
 
   List<Map<String, dynamic>> tableValues = [];
   List<TableRow> rows = [];
@@ -54,12 +54,18 @@ class _TableHeaderState extends State<TableHeader> {
   double thick = 0;
   int qty = 0;
   double rate = 0;
-  int divideVal = 0;
+  double divideVal = 0;
 
   double getRates() {
     switch (thick) {
       case 2:
         return double.parse(rates['2mm'].toString());
+
+      case 3:
+        return double.parse(rates['3mm'].toString());
+
+      case 3.5:
+        return double.parse(rates['3.5mm'].toString());
 
       case 4:
         return double.parse(rates['4mm'].toString());
@@ -117,7 +123,7 @@ class _TableHeaderState extends State<TableHeader> {
           divideVal = 144;
         } else {
           charge = 32;
-          divideVal = 92900;
+          divideVal = 92903.04;
         }
         thick = double.parse(thickCtrl.text);
         qty = int.parse(qtyCtrl.text);

@@ -17,6 +17,8 @@ class SetRatesPage extends StatefulWidget {
 class _SetRatesPageState extends State<SetRatesPage> {
   Map<String, Object> rates = {};
   TextEditingController controller2mm = TextEditingController();
+  TextEditingController controller3mm = TextEditingController();
+  TextEditingController controller3pt5mm = TextEditingController();
   TextEditingController controller4mm = TextEditingController();
   TextEditingController controller5mm = TextEditingController();
   TextEditingController controller6mm = TextEditingController();
@@ -33,6 +35,8 @@ class _SetRatesPageState extends State<SetRatesPage> {
   @override
   void dispose() {
     controller2mm.dispose();
+    controller3mm.dispose();
+    controller3pt5mm.dispose();
     controller4mm.dispose();
     controller5mm.dispose();
     controller6mm.dispose();
@@ -49,6 +53,8 @@ class _SetRatesPageState extends State<SetRatesPage> {
       if (ratesString != null) {
         rates = Map<String, Object>.from(jsonDecode(ratesString));
         controller2mm.text = rates['2mm'].toString();
+        controller3mm.text = rates['3mm'].toString();
+        controller3pt5mm.text = rates['3.5mm'].toString();
         controller4mm.text = rates['4mm'].toString();
         controller5mm.text = rates['5mm'].toString();
         controller6mm.text = rates['6mm'].toString();
@@ -58,6 +64,8 @@ class _SetRatesPageState extends State<SetRatesPage> {
       } else {
         rates = {
           '2mm': 1,
+          '3mm': 1,
+          '3.5mm': 1,
           '4mm': 1,
           '5mm': 1,
           '6mm': 1,
@@ -66,6 +74,8 @@ class _SetRatesPageState extends State<SetRatesPage> {
           '12mm': 1,
         };
         controller2mm.text = '1';
+        controller3mm.text = '1';
+        controller3pt5mm.text = '1';
         controller4mm.text = '1';
         controller5mm.text = '1';
         controller6mm.text = '1';
@@ -80,6 +90,8 @@ class _SetRatesPageState extends State<SetRatesPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final updateRates = {
       '2mm': double.parse(controller2mm.text),
+      '3mm': double.parse(controller3mm.text),
+      '3.5mm': double.parse(controller3pt5mm.text),
       '4mm': double.parse(controller4mm.text),
       '5mm': double.parse(controller5mm.text),
       '6mm': double.parse(controller6mm.text),
@@ -128,25 +140,24 @@ class _SetRatesPageState extends State<SetRatesPage> {
       body: Padding(
         padding: const EdgeInsets.only(
             left: 32.0, right: 32.0, top: 12.0, bottom: 12.0),
-        child: SingleChildScrollView(
-          reverse: true,
-          child: Column(
-            children: [
-              const Text(
-                'Set Rates here!',
-                style: TextStyle(fontSize: 22),
-              ),
-              const SizedBox(height: 10),
-              SetRatesTxtField(controller: controller2mm, name: '2mm'),
-              SetRatesTxtField(controller: controller4mm, name: '4mm'),
-              SetRatesTxtField(controller: controller5mm, name: '5mm'),
-              SetRatesTxtField(controller: controller6mm, name: '6mm'),
-              SetRatesTxtField(controller: controller8mm, name: '8mm'),
-              SetRatesTxtField(controller: controller10mm, name: '10mm'),
-              SetRatesTxtField(controller: controller12mm, name: '12mm'),
-              DimensionButton(btnTxt: 'Save', fun: updateRates),
-            ],
-          ),
+        child: ListView(
+          children: [
+            const Text(
+              'Set Rates here!',
+              style: TextStyle(fontSize: 22),
+            ),
+            const SizedBox(height: 10),
+            SetRatesTxtField(controller: controller2mm, name: '2mm'),
+            SetRatesTxtField(controller: controller3mm, name: '3mm'),
+            SetRatesTxtField(controller: controller3pt5mm, name: '3.5mm'),
+            SetRatesTxtField(controller: controller4mm, name: '4mm'),
+            SetRatesTxtField(controller: controller5mm, name: '5mm'),
+            SetRatesTxtField(controller: controller6mm, name: '6mm'),
+            SetRatesTxtField(controller: controller8mm, name: '8mm'),
+            SetRatesTxtField(controller: controller10mm, name: '10mm'),
+            SetRatesTxtField(controller: controller12mm, name: '12mm'),
+            DimensionButton(btnTxt: 'Save', fun: updateRates),
+          ],
         ),
       ),
     );

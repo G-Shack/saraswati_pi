@@ -10,7 +10,7 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  TextEditingController billNo = TextEditingController();
+  TextEditingController billName = TextEditingController();
   String selectedUnit = "inch";
   Color mmText = Colors.white;
   Color inchText = const Color(0xFF090d23);
@@ -125,19 +125,18 @@ class _StartPageState extends State<StartPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Bill No.',
+                      'Bill',
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(width: 25),
                     SizedBox(
-                      width: 150,
+                      width: 200,
                       child: TextField(
-                        keyboardType: TextInputType.datetime,
-                        controller: billNo,
+                        controller: billName,
                         decoration: const InputDecoration(
-                          hintText: "Enter Bill No.",
+                          hintText: "Enter customer name",
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -147,26 +146,26 @@ class _StartPageState extends State<StartPage> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    if (selectedUnit == "inch" && billNo.text != "") {
+                    if (selectedUnit == "inch" && billName.text != "") {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DimensionsPage(
                                     dimension: selectedUnit,
-                                    billNo: billNo.text,
+                                    billName: billName.text,
                                   )));
-                    } else if (selectedUnit == "mm" && billNo.text != "") {
+                    } else if (selectedUnit == "mm" && billName.text != "") {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DimensionsPage(
                                     dimension: selectedUnit,
-                                    billNo: billNo.text,
+                                    billName: billName.text,
                                   )));
                     } else {
                       var emptySnack = const SnackBar(
                         content: Text(
-                          'Bill no. is empty!',
+                          'Customer name is empty!',
                         ),
                         behavior: SnackBarBehavior.floating,
                         duration: Duration(seconds: 1, milliseconds: 500),

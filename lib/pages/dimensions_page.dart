@@ -6,9 +6,9 @@ import 'package:saraswati_pi/widgets/table_template.dart';
 import 'package:saraswati_pi/widgets/table_header2.dart';
 
 class DimensionsPage extends StatelessWidget {
-  final String billNo;
+  final String billName;
   final String dimension;
-  DimensionsPage({super.key, required this.dimension, required this.billNo});
+  DimensionsPage({super.key, required this.dimension, required this.billName});
   final PdfService pdfService = PdfService();
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class DimensionsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Bill No: $billNo',
+                  Text('Customer Name: $billName',
                       style: const TextStyle(fontSize: 18)),
                   const SizedBox(height: 10),
                   TableTemplate(dimension: dimension),
@@ -40,8 +40,8 @@ class DimensionsPage extends StatelessWidget {
           onPressed: () async {
             var tableValues = provider.tableValues;
             final bill =
-                await pdfService.generatePdf(billNo, tableValues, dimension);
-            pdfService.savePdfFile("BillNO$billNo", bill);
+                await pdfService.generatePdf(billName, tableValues, dimension);
+            pdfService.savePdfFile("Bill$billName", bill);
           },
           child: const Icon(Icons.save),
         ),

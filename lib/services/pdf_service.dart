@@ -6,7 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfService {
-  Future<Uint8List> generatePdf(String billNo,
+  Future<Uint8List> generatePdf(String billName,
       List<Map<String, dynamic>> tableValues, String dimension) async {
     final pdf = pw.Document();
     num totalQty = 0;
@@ -71,7 +71,7 @@ class PdfService {
             pw.Padding(
                 padding: const pw.EdgeInsets.all(2),
                 child: pw.Expanded(
-                    child: pw.Text("Bill No: $billNo",
+                    child: pw.Text("Customer Name: $billName",
                         style: const pw.TextStyle(fontSize: 10)))),
             pw.Padding(
                 padding: const pw.EdgeInsets.all(2),
@@ -83,16 +83,16 @@ class PdfService {
         ));
     pw.Table tableHeader() {
       return pw.Table(
-        // columnWidths: const {
-        //   0: pw.FixedColumnWidth(35.0),
-        //   1: pw.FixedColumnWidth(100.0),
-        //   2: pw.FixedColumnWidth(100.0),
-        //   3: pw.FixedColumnWidth(40.0),
-        //   4: pw.FixedColumnWidth(40.0),
-        //   5: pw.FixedColumnWidth(40.0),
-        //   6: pw.FixedColumnWidth(50.0),
-        //   7: pw.FixedColumnWidth(70.0),
-        // },
+        columnWidths: const {
+          0: pw.FixedColumnWidth(35.0),
+          1: pw.FixedColumnWidth(100.0),
+          2: pw.FixedColumnWidth(100.0),
+          3: pw.FixedColumnWidth(40.0),
+          4: pw.FixedColumnWidth(40.0),
+          5: pw.FixedColumnWidth(40.0),
+          6: pw.FixedColumnWidth(50.0),
+          7: pw.FixedColumnWidth(70.0),
+        },
         border: pw.TableBorder.all(),
         children: [
           pw.TableRow(
@@ -171,18 +171,18 @@ class PdfService {
         ));
       }
       return pw.Table(
-        // columnWidths: {
-        //   0: const pw.FixedColumnWidth(35.0),
-        //   1: const pw.FixedColumnWidth(50.0),
-        //   2: const pw.FixedColumnWidth(50.0),
-        //   3: const pw.FixedColumnWidth(50.0),
-        //   4: const pw.FixedColumnWidth(50.0),
-        //   5: const pw.FixedColumnWidth(40.0),
-        //   6: const pw.FixedColumnWidth(40.0),
-        //   7: const pw.FixedColumnWidth(40.0),
-        //   8: const pw.FixedColumnWidth(50.0),
-        //   9: const pw.FixedColumnWidth(70.0),
-        // },
+        columnWidths: {
+          0: const pw.FixedColumnWidth(35.0),
+          1: const pw.FixedColumnWidth(50.0),
+          2: const pw.FixedColumnWidth(50.0),
+          3: const pw.FixedColumnWidth(50.0),
+          4: const pw.FixedColumnWidth(50.0),
+          5: const pw.FixedColumnWidth(40.0),
+          6: const pw.FixedColumnWidth(40.0),
+          7: const pw.FixedColumnWidth(40.0),
+          8: const pw.FixedColumnWidth(50.0),
+          9: const pw.FixedColumnWidth(70.0),
+        },
         border: pw.TableBorder.all(),
         children: [
           pw.TableRow(
@@ -270,12 +270,12 @@ class PdfService {
       num taxAmt = 0.09 * totBeforeTax;
       num grandTotal = totBeforeTax + (2 * taxAmt);
       return pw.Table(
-        // columnWidths: const {
-        //   0: pw.FixedColumnWidth(90.0),
-        //   1: pw.FixedColumnWidth(160.0),
-        //   2: pw.FixedColumnWidth(145.0),
-        //   3: pw.FixedColumnWidth(60.0),
-        // },
+        columnWidths: const {
+          0: pw.FixedColumnWidth(90.0),
+          1: pw.FixedColumnWidth(160.0),
+          2: pw.FixedColumnWidth(145.0),
+          3: pw.FixedColumnWidth(60.0),
+        },
         border: pw.TableBorder.all(),
         children: [
           pw.TableRow(
