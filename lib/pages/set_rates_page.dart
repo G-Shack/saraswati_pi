@@ -25,6 +25,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
   TextEditingController controller8mm = TextEditingController();
   TextEditingController controller10mm = TextEditingController();
   TextEditingController controller12mm = TextEditingController();
+  TextEditingController controller15mm = TextEditingController();
+  TextEditingController controllerHoles = TextEditingController();
+  TextEditingController controllerCnt = TextEditingController();
 
   @override
   void initState() {
@@ -43,6 +46,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
     controller8mm.dispose();
     controller10mm.dispose();
     controller12mm.dispose();
+    controller15mm.dispose();
+    controllerHoles.dispose();
+    controllerCnt.dispose();
     super.dispose();
   }
 
@@ -61,6 +67,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
         controller8mm.text = rates['8mm'].toString();
         controller10mm.text = rates['10mm'].toString();
         controller12mm.text = rates['12mm'].toString();
+        controller15mm.text = rates['15mm'].toString();
+        controllerHoles.text = rates['holes'].toString();
+        controllerCnt.text = rates['cnt'].toString();
       } else {
         rates = {
           '2mm': 1,
@@ -72,6 +81,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
           '8mm': 1,
           '10mm': 1,
           '12mm': 1,
+          '15mm': 1,
+          'holes': 1,
+          'cnt': 1,
         };
         controller2mm.text = '1';
         controller3mm.text = '1';
@@ -82,6 +94,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
         controller8mm.text = '1';
         controller10mm.text = '1';
         controller12mm.text = '1';
+        controller15mm.text = '1';
+        controllerHoles.text = '1';
+        controllerCnt.text = '1';
       }
     });
   }
@@ -98,6 +113,9 @@ class _SetRatesPageState extends State<SetRatesPage> {
       '8mm': double.parse(controller8mm.text),
       '10mm': double.parse(controller10mm.text),
       '12mm': double.parse(controller12mm.text),
+      '15mm': double.parse(controller15mm.text),
+      'holes': double.parse(controllerHoles.text),
+      'cnt': double.parse(controllerCnt.text),
     };
     if (!mapEquals(rates, updateRates)) {
       setState(() {
@@ -143,19 +161,43 @@ class _SetRatesPageState extends State<SetRatesPage> {
         child: ListView(
           children: [
             const Text(
-              'Set Rates here!',
+              'Set Glass Rates',
               style: TextStyle(fontSize: 22),
             ),
             const SizedBox(height: 10),
-            SetRatesTxtField(controller: controller2mm, name: '2mm'),
-            SetRatesTxtField(controller: controller3mm, name: '3mm'),
-            SetRatesTxtField(controller: controller3pt5mm, name: '3.5mm'),
-            SetRatesTxtField(controller: controller4mm, name: '4mm'),
-            SetRatesTxtField(controller: controller5mm, name: '5mm'),
-            SetRatesTxtField(controller: controller6mm, name: '6mm'),
-            SetRatesTxtField(controller: controller8mm, name: '8mm'),
-            SetRatesTxtField(controller: controller10mm, name: '10mm'),
-            SetRatesTxtField(controller: controller12mm, name: '12mm'),
+            SetRatesTxtField(
+              controller1: controller2mm,
+              name1: '2mm',
+              controller2: controller3mm,
+              name2: '3mm',
+            ),
+            SetRatesTxtField(
+                controller1: controller3pt5mm,
+                name1: '3.5mm',
+                controller2: controller4mm,
+                name2: '4mm'),
+            SetRatesTxtField(
+                controller1: controller5mm,
+                name1: '5mm',
+                controller2: controller6mm,
+                name2: '6mm'),
+            SetRatesTxtField(
+                controller1: controller8mm,
+                name1: '8mm',
+                controller2: controller10mm,
+                name2: '10mm'),
+            SetRatesTxtField(
+              controller1: controller12mm,
+              name1: '12mm',
+              controller2: controller15mm,
+              name2: '15mm',
+            ),
+            SetRatesTxtField(
+              controller1: controllerHoles,
+              name1: 'Holes Rate',
+              controller2: controllerCnt,
+              name2: 'Cutout Rate',
+            ),
             DimensionButton(btnTxt: 'Save', fun: updateRates),
           ],
         ),

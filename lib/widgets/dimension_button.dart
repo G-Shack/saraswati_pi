@@ -7,24 +7,15 @@ class DimensionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        fun!();
-      },
-      child: Container(
-        height: 45,
-        width: 90,
-        decoration: BoxDecoration(
-          color: Colors.amberAccent,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-            child: Text(
-          btnTxt,
-          style: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 14),
-        )),
-      ),
-    );
+    return ElevatedButton(
+        style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(Colors.amberAccent),
+            foregroundColor: MaterialStatePropertyAll(Colors.black),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12))))),
+        onPressed: () {
+          fun!();
+        },
+        child: Text(btnTxt));
   }
 }

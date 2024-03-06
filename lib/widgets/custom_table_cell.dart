@@ -6,6 +6,8 @@ class CustomTableCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TableCell(child: Center(child: Text(text)));
+    return TableCell(
+      child: Center(child: Text(text)),
+    );
   }
 }

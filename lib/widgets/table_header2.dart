@@ -27,8 +27,10 @@ class _TableHeaderState extends State<TableHeader> {
     5: const FixedColumnWidth(50.0),
     6: const FixedColumnWidth(40.0),
     7: const FixedColumnWidth(40.0),
-    8: const FixedColumnWidth(50.0),
-    9: const FixedColumnWidth(70.0),
+    8: const FixedColumnWidth(40.0),
+    9: const FixedColumnWidth(40.0),
+    10: const FixedColumnWidth(50.0),
+    11: const FixedColumnWidth(70.0),
   };
   final border = TableBorder.all(color: Colors.white60);
 
@@ -40,6 +42,8 @@ class _TableHeaderState extends State<TableHeader> {
   TextEditingController actBCtrl = TextEditingController();
   TextEditingController thickCtrl = TextEditingController();
   TextEditingController qtyCtrl = TextEditingController();
+  TextEditingController holesCtrl = TextEditingController();
+  TextEditingController cntCtrl = TextEditingController();
 
   String dimension = "";
 
@@ -53,6 +57,8 @@ class _TableHeaderState extends State<TableHeader> {
   double chrB = 0;
   double thick = 0;
   int qty = 0;
+  int holes = 0;
+  int cnt = 0;
   double rate = 0;
   double divideVal = 0;
 
@@ -127,6 +133,8 @@ class _TableHeaderState extends State<TableHeader> {
         }
         thick = double.parse(thickCtrl.text);
         qty = int.parse(qtyCtrl.text);
+        holes = holesCtrl.text == "" ? 0 : int.parse(holesCtrl.text);
+        cnt = cntCtrl.text == "" ? 0 : int.parse(cntCtrl.text);
         sr++;
         chrL = actL + charge;
         chrB = actB + charge;
@@ -143,6 +151,8 @@ class _TableHeaderState extends State<TableHeader> {
           'thick': thick,
           'rate': rate,
           'qty': qty,
+          'holes': holes,
+          'cnt': cnt,
           'area': area,
           'amount': amount
         });
@@ -156,6 +166,8 @@ class _TableHeaderState extends State<TableHeader> {
             CustomTableCell(text: '$thick'),
             CustomTableCell(text: '$rate'),
             CustomTableCell(text: '$qty'),
+            CustomTableCell(text: '$holes'),
+            CustomTableCell(text: '$cnt'),
             CustomTableCell(text: area.toStringAsFixed(2)),
             CustomTableCell(text: amount.toStringAsFixed(2)),
           ],
@@ -188,10 +200,14 @@ class _TableHeaderState extends State<TableHeader> {
     num totalQty = 0;
     num totalAmount = 0;
     num totalArea = 0;
+    num totalHoles = 0;
+    num totalCnt = 0;
     for (var total in tableValues) {
       totalAmount += total['amount'];
       totalArea += total['area'];
       totalQty += total['qty'];
+      totalHoles += total['holes'];
+      totalCnt += total['cnt'];
     }
     String strTotalAmt = totalAmount.toStringAsFixed(2);
     String strTotalArea = totalArea.toStringAsFixed(2);
@@ -199,7 +215,7 @@ class _TableHeaderState extends State<TableHeader> {
       context: context,
       title: 'Calculated!',
       desc:
-          'Net Price: $strTotalAmt\nNet Area: $strTotalArea\nNet Quantity: $totalQty\n',
+          'Net Price: $strTotalAmt\nNet Area: $strTotalArea\nNet Quantity: $totalQty\nHoles: $totalHoles\nCutouts: $totalCnt',
       style: const AlertStyle(
         backgroundColor: Color(0x35EB1555),
         descStyle: TextStyle(color: Colors.white),
@@ -219,6 +235,8 @@ class _TableHeaderState extends State<TableHeader> {
     '8mm': 1,
     '10mm': 1,
     '12mm': 1,
+    'holes': 1,
+    'cnt': 1,
   };
 
   void loadRates() async {
@@ -240,6 +258,8 @@ class _TableHeaderState extends State<TableHeader> {
     actBCtrl.dispose();
     thickCtrl.dispose();
     qtyCtrl.dispose();
+    holesCtrl.dispose();
+    cntCtrl.dispose();
     super.dispose();
   }
 
@@ -261,6 +281,8 @@ class _TableHeaderState extends State<TableHeader> {
                 CustomTableCell(text: 'mm'),
                 CustomTableCell(text: '₹/ft'),
                 CustomTableCell(text: 'Nos.'),
+                CustomTableCell(text: 'Nos.'),
+                CustomTableCell(text: 'Nos.'),
                 CustomTableCell(text: 'SQFt.'),
                 CustomTableCell(text: '₹'),
               ],
@@ -276,6 +298,8 @@ class _TableHeaderState extends State<TableHeader> {
                 DimensionTxtField(controller: thickCtrl),
                 const TableCell(child: SizedBox()),
                 DimensionTxtField(controller: qtyCtrl),
+                DimensionTxtField(controller: holesCtrl),
+                DimensionTxtField(controller: cntCtrl),
                 const TableCell(child: SizedBox()),
                 const TableCell(child: SizedBox()),
               ],
