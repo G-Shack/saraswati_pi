@@ -250,8 +250,8 @@ class _TableHeaderState extends State<TableHeader> {
         Table(
           columnWidths: columnWidth,
           border: border,
-          children: const [
-            TableRow(
+          children: [
+            const TableRow(
               children: [
                 CustomTableCell(text: ''),
                 CustomTableCell(text: 'L'),
@@ -265,17 +265,7 @@ class _TableHeaderState extends State<TableHeader> {
                 CustomTableCell(text: '₹'),
               ],
             ),
-          ],
-        ),
-        Table(
-          columnWidths: columnWidth,
-          border: border,
-          children: rows,
-        ),
-        Table(
-          columnWidths: columnWidth,
-          border: border,
-          children: [
+            ...rows,
             TableRow(
               children: [
                 const TableCell(child: SizedBox()),
