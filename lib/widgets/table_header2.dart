@@ -33,9 +33,7 @@ class _TableHeaderState extends State<TableHeader> {
     11: const FixedColumnWidth(70.0),
   };
   final border = TableBorder.all(color: Colors.white60);
-
   List<double> thickList = [2, 3, 3.5, 4, 5, 6, 8, 10, 12];
-
   List<Map<String, dynamic>> tableValues = [];
   List<TableRow> rows = [];
   TextEditingController actLCtrl = TextEditingController();
@@ -46,8 +44,10 @@ class _TableHeaderState extends State<TableHeader> {
   TextEditingController cntCtrl = TextEditingController();
 
   String dimension = "";
+  String kaccha = 'TUFFEN';
 
-  double charge = 0;
+  double chargeL = 0;
+  double chargeB = 0;
   int sr = 0;
   double area = 0;
   double amount = 0;
@@ -61,6 +61,8 @@ class _TableHeaderState extends State<TableHeader> {
   int cnt = 0;
   double rate = 0;
   double divideVal = 0;
+
+  bool isKaccha = false;
 
   double getRates() {
     switch (thick) {
@@ -125,10 +127,22 @@ class _TableHeaderState extends State<TableHeader> {
         actL = onSubmit(actLCtrl.text);
         actB = onSubmit(actBCtrl.text);
         if (dimension == 'inch') {
-          charge = 1.26;
+          if (isKaccha) {
+            chargeL = (3 - (actL % 3));
+            chargeB = (3 - (actB % 3));
+          } else {
+            chargeL = 1.26;
+            chargeB = 1.26;
+          }
           divideVal = 144;
         } else {
-          charge = 32;
+          if (isKaccha) {
+            chargeL = (3 - (actL % 3));
+            chargeB = (3 - (actB % 3));
+          } else {
+            chargeL = 32;
+            chargeB = 32;
+          }
           divideVal = 92903.04;
         }
         thick = double.parse(thickCtrl.text);
@@ -136,9 +150,8 @@ class _TableHeaderState extends State<TableHeader> {
         holes = holesCtrl.text == "" ? 0 : int.parse(holesCtrl.text);
         cnt = cntCtrl.text == "" ? 0 : int.parse(cntCtrl.text);
         sr++;
-        chrL = actL + charge;
-        chrB = actB + charge;
-
+        chrL = actL + chargeL;
+        chrB = actB + chargeB;
         rate = getRates();
         area = ((chrL * chrB * qty) / divideVal);
         amount = (((chrL * chrB * qty) / divideVal) * rate);
@@ -193,6 +206,17 @@ class _TableHeaderState extends State<TableHeader> {
         tableValues.removeLast();
         rows.removeLast();
       }
+    });
+  }
+
+  void getKaccha() {
+    setState(() {
+      if (isKaccha) {
+        kaccha = "TUFFEN";
+      } else {
+        kaccha = "KACCHA";
+      }
+      isKaccha = !isKaccha;
     });
   }
 
@@ -288,6 +312,12 @@ class _TableHeaderState extends State<TableHeader> {
               ],
             ),
             ...rows,
+          ],
+        ),
+        Table(
+          columnWidths: columnWidth,
+          border: border,
+          children: [
             TableRow(
               children: [
                 const TableCell(child: SizedBox()),
@@ -310,13 +340,11 @@ class _TableHeaderState extends State<TableHeader> {
         Row(
           children: [
             DimensionButton(btnTxt: 'Add Row', fun: addRow),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 10),
             DimensionButton(btnTxt: 'Delete Row', fun: deleteRow),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 10),
+            DimensionButton(btnTxt: kaccha, fun: getKaccha),
+            const SizedBox(width: 10),
             DimensionButton(btnTxt: 'Show Total', fun: showTotal),
           ],
         ),
