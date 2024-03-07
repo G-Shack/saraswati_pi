@@ -331,10 +331,7 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("PAYMENT:",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Text("",
-                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              blankCell(),
               textCell("SGST @ 9%"),
               textCell(taxAmt.toStringAsFixed(2)),
             ],

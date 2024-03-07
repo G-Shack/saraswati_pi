@@ -23,9 +23,7 @@ class SetRatesTxtField extends StatelessWidget {
               child: TextField(
                 controller: controller1,
                 decoration: InputDecoration(
-                    labelText: name1,
-                    labelStyle: const TextStyle(fontSize: 18),
-                    border: const OutlineInputBorder()),
+                    labelText: name1, border: const OutlineInputBorder()),
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.datetime,
               ),
@@ -35,9 +33,7 @@ class SetRatesTxtField extends StatelessWidget {
               child: TextField(
                 controller: controller2,
                 decoration: InputDecoration(
-                    labelText: name2,
-                    labelStyle: const TextStyle(fontSize: 18),
-                    border: const OutlineInputBorder()),
+                    labelText: name2, border: const OutlineInputBorder()),
                 style: const TextStyle(fontSize: 14),
                 keyboardType: TextInputType.datetime,
               ),
