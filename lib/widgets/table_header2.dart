@@ -123,7 +123,10 @@ class _TableHeaderState extends State<TableHeader> {
   void addRow() {
     setState(() {
       context.read<TableValuesProvider>().changeTableValues(tableValues);
-      if (thickList.contains(double.parse(thickCtrl.text))) {
+      if ((thickList.contains(double.parse(thickCtrl.text))) &&
+              (actLCtrl.text != "") ||
+          (actBCtrl.text != "") ||
+          (qtyCtrl.text != "")) {
         actL = onSubmit(actLCtrl.text);
         actB = onSubmit(actBCtrl.text);
         if (dimension == 'inch') {
@@ -188,7 +191,7 @@ class _TableHeaderState extends State<TableHeader> {
       } else {
         var wrongThickSnack = const SnackBar(
           content: Text(
-            'wrong thickness.',
+            'Invalid Input',
           ),
           behavior: SnackBarBehavior.floating,
           duration: Duration(seconds: 1, milliseconds: 500),

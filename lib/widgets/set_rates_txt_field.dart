@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SetRatesTxtField extends StatelessWidget {
-  String name1;
-  String name2;
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  SetRatesTxtField(
+  final String name1;
+  final String name2;
+  final TextEditingController controller1;
+  final TextEditingController controller2;
+
+  const SetRatesTxtField(
       {super.key,
       required this.controller1,
       required this.controller2,

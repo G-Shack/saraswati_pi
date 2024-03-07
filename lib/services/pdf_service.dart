@@ -105,6 +105,24 @@ class PdfService {
                         style: const pw.TextStyle(fontSize: 10)))),
           ],
         ));
+    pw.Padding blankCell() {
+      return pw.Padding(padding: const pw.EdgeInsets.all(2));
+    }
+
+    pw.Padding textCell(String text) {
+      return pw.Padding(
+          padding: const pw.EdgeInsets.all(2),
+          child: pw.Center(child: pw.Text(text)));
+    }
+
+    pw.Padding textCellBold(String text) {
+      return pw.Padding(
+          padding: const pw.EdgeInsets.all(2),
+          child: pw.Center(
+              child: pw.Text(text,
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold))));
+    }
+
     pw.Table tableHeader() {
       return pw.Table(
         columnWidths: const {
@@ -123,66 +141,16 @@ class PdfService {
         children: [
           pw.TableRow(
             children: [
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Sr",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Act Size ($dimension)",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Chr Size ($dimension)",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Thick",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Rate",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Qty",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("HOL",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("CNT",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Area",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("Amount",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              textCellBold("Sr"),
+              textCellBold("Act Size ($dimension)"),
+              textCellBold("Chr Size ($dimension)"),
+              textCellBold("Thick"),
+              textCellBold("Rate"),
+              textCellBold("Qty"),
+              textCellBold("HOL"),
+              textCellBold("CNT"),
+              textCellBold("Area"),
+              textCellBold("Amount"),
             ],
           ),
         ],
@@ -201,44 +169,18 @@ class PdfService {
         cntChr = totalCnt * (double.parse(rates['cnt'].toString()));
         rows.add(pw.TableRow(
           children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["sr"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["actL"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["actB"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["chrL"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["charB"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["thick"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["rate"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["qty"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["holes"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(value["cnt"].toString()))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(value["area"].toStringAsFixed(2)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(value["amount"].toStringAsFixed(2)))),
+            textCell(value["sr"].toString()),
+            textCell(value["actL"].toString()),
+            textCell(value["actB"].toString()),
+            textCell(value["chrL"].toString()),
+            textCell(value["charB"].toString()),
+            textCell(value["thick"].toString()),
+            textCell(value["rate"].toString()),
+            textCell(value["qty"].toString()),
+            textCell(value["holes"].toString()),
+            textCell(value["cnt"].toString()),
+            textCellBold(value["area"].toStringAsFixed(2)),
+            textCellBold(value["amount"].toStringAsFixed(2)),
           ],
         ));
       }
@@ -261,94 +203,34 @@ class PdfService {
         children: [
           pw.TableRow(
             children: [
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text(""))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("L"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("B"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("L"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("B"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("mm"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Rs./ft"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Nos."))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Nos."))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Nos."))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("SQFt."))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("Rs."))),
+              blankCell(),
+              textCell("L"),
+              textCell("B"),
+              textCell("L"),
+              textCell("B"),
+              textCell("mm"),
+              textCell("Rs./ft"),
+              textCell("Nos."),
+              textCell("Nos."),
+              textCell("Nos."),
+              textCell("SQFt."),
+              textCell("Rs."),
             ],
           ),
           ...rows,
           pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(child: pw.Text(""))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text("TTL",
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(totalQty.toString(),
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(totalHoles.toString(),
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(totalCnt.toString(),
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text(totalArea.toStringAsFixed(2),
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(2),
-                child: pw.Center(
-                    child: pw.Text("",
-                        style: pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+            blankCell(),
+            blankCell(),
+            blankCell(),
+            blankCell(),
+            blankCell(),
+            blankCell(),
+            textCellBold("TTL"),
+            textCellBold(totalQty.toString()),
+            textCellBold(totalHoles.toString()),
+            textCellBold(totalCnt.toString()),
+            textCellBold(totalArea.toStringAsFixed(2)),
+            blankCell(),
           ]),
         ],
       );
@@ -369,20 +251,10 @@ class PdfService {
         children: [
           pw.TableRow(
             children: [
-              pw.Padding(padding: const pw.EdgeInsets.all(2)),
-              pw.Padding(padding: const pw.EdgeInsets.all(2)),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("SUB TOTAL",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text(totalAmount.toStringAsFixed(2),
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              blankCell(),
+              blankCell(),
+              textCellBold("SUB TOTAL"),
+              textCellBold(totalAmount.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
@@ -395,12 +267,8 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("27AVHPT6781H1ZW",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("ADMIN CHARGES"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("200"))),
+              textCell("ADMIN CHARGES"),
+              textCell(adminCharges.toString()),
             ],
           ),
           pw.TableRow(
@@ -412,13 +280,8 @@ class PdfService {
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("SARASWATI ENTERPRISES")),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("HOLES CHARGES"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child:
-                      pw.Center(child: pw.Text(holesChr.toStringAsFixed(2)))),
+              textCell("HOLES CHARGES"),
+              textCell(holesChr.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
@@ -431,12 +294,8 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("758805000007",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("CUTOUT CHR"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text(cntChr.toStringAsFixed(2)))),
+              textCell("CUTOUT CHARGES"),
+              textCell(cntChr.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
@@ -448,18 +307,8 @@ class PdfService {
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("CURRENT ACCOUNT")),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("TOTAL BEFORE TAX",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text(totBeforeTax.toStringAsFixed(2),
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              textCellBold("TOTAL BEFORE TAX"),
+              textCellBold(totBeforeTax.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
@@ -472,12 +321,8 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("ICICI BANK",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("CGST @ 9%"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text(taxAmt.toStringAsFixed(2)))),
+              textCell("CGST @ 9%"),
+              textCell(taxAmt.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
@@ -490,30 +335,16 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text("SGST @ 9%"))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(child: pw.Text(taxAmt.toStringAsFixed(2)))),
+              textCell("SGST @ 9%"),
+              textCell(taxAmt.toStringAsFixed(2)),
             ],
           ),
           pw.TableRow(
             children: [
-              pw.Padding(padding: const pw.EdgeInsets.all(2)),
-              pw.Padding(padding: const pw.EdgeInsets.all(2)),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text("GRAND TOTAL",
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
-              pw.Padding(
-                  padding: const pw.EdgeInsets.all(2),
-                  child: pw.Center(
-                      child: pw.Text(grandTotal.toStringAsFixed(2),
-                          style:
-                              pw.TextStyle(fontWeight: pw.FontWeight.bold)))),
+              blankCell(),
+              blankCell(),
+              textCellBold("GRAND TOTAL"),
+              textCellBold(grandTotal.toStringAsFixed(2)),
             ],
           ),
         ],
@@ -529,6 +360,7 @@ class PdfService {
 
     pdf.addPage(pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
+        margin: const pw.EdgeInsets.all(48),
         build: (pw.Context content) {
           return pageWidgets;
         }));
