@@ -341,7 +341,7 @@ class _TableHeaderState extends State<TableHeader> {
           children: [
             DimensionButton(btnTxt: 'Add Row', fun: addRow),
             const SizedBox(width: 10),
-            DimensionButton(btnTxt: 'Delete Row', fun: deleteRow),
+            DimensionButton(btnTxt: 'Del Row', fun: deleteRow),
             const SizedBox(width: 10),
             DimensionButton(btnTxt: kaccha, fun: getKaccha),
             const SizedBox(width: 10),
