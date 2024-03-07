@@ -179,8 +179,8 @@ class PdfService {
             textCell(value["qty"].toString()),
             textCell(value["holes"].toString()),
             textCell(value["cnt"].toString()),
-            textCellBold(value["area"].toStringAsFixed(2)),
-            textCellBold(value["amount"].toStringAsFixed(2)),
+            textCell(value["area"].toStringAsFixed(2)),
+            textCell(value["amount"].toStringAsFixed(2)),
           ],
         ));
       }
