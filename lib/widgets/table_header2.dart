@@ -33,7 +33,7 @@ class _TableHeaderState extends State<TableHeader> {
     11: const FixedColumnWidth(70.0),
   };
   final border = TableBorder.all(color: Colors.white60);
-  List<double> thickList = [2, 3, 3.5, 4, 5, 6, 8, 10, 12];
+  List<double> thickList = [2, 3, 3.5, 4, 5, 6, 8, 10, 12, 15];
   List<Map<String, dynamic>> tableValues = [];
   List<TableRow> rows = [];
   TextEditingController actLCtrl = TextEditingController();
@@ -123,10 +123,7 @@ class _TableHeaderState extends State<TableHeader> {
   void addRow() {
     setState(() {
       context.read<TableValuesProvider>().changeTableValues(tableValues);
-      if ((thickList.contains(double.parse(thickCtrl.text))) &&
-              (actLCtrl.text != "") ||
-          (actBCtrl.text != "") ||
-          (qtyCtrl.text != "")) {
+      if (thickList.contains(double.parse(thickCtrl.text))) {
         actL = onSubmit(actLCtrl.text);
         actB = onSubmit(actBCtrl.text);
         if (dimension == 'inch') {
