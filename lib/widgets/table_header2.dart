@@ -348,7 +348,7 @@ class _TableHeaderState extends State<TableHeader> {
             const SizedBox(width: 10),
             DimensionButton(btnTxt: kaccha, fun: getKaccha),
             const SizedBox(width: 10),
-            DimensionButton(btnTxt: 'Show Total', fun: showTotal),
+            DimensionButton(btnTxt: 'Show TTL', fun: showTotal),
           ],
         ),
       ],

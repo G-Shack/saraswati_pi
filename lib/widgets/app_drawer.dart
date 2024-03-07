@@ -14,6 +14,7 @@ class AppDrawer extends StatelessWidget {
           const DrawerHeader(
             child: Icon(
               Icons.note_alt_sharp,
+              size: 38,
             ),
           ),
           ListTile(
