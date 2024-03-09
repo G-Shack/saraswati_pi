@@ -319,9 +319,21 @@ class PdfService {
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
               pw.Padding(
                   padding: const pw.EdgeInsets.all(2),
-                  child: pw.Text("ICICI BANK",
-                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+                  child: pw.Text("ICICI BANK")),
               textCell("CGST @ 9%"),
+              textCell(taxAmt.toStringAsFixed(2)),
+            ],
+          ),
+          pw.TableRow(
+            children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("IFSC CODE:",
+                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
+              pw.Padding(
+                  padding: const pw.EdgeInsets.all(2),
+                  child: pw.Text("ICIC0007588")),
+              textCell("SGST @ 9%"),
               textCell(taxAmt.toStringAsFixed(2)),
             ],
           ),
@@ -331,14 +343,6 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(2),
                   child: pw.Text("PAYMENT:",
                       style: pw.TextStyle(fontWeight: pw.FontWeight.bold))),
-              blankCell(),
-              textCell("SGST @ 9%"),
-              textCell(taxAmt.toStringAsFixed(2)),
-            ],
-          ),
-          pw.TableRow(
-            children: [
-              blankCell(),
               blankCell(),
               textCellBold("GRAND TOTAL"),
               textCellBold(grandTotal.toStringAsFixed(2)),

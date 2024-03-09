@@ -18,20 +18,6 @@ class TableHeader extends StatefulWidget {
 }
 
 class _TableHeaderState extends State<TableHeader> {
-  final columnWidth = {
-    0: const FixedColumnWidth(35.0),
-    1: const FixedColumnWidth(50.0),
-    2: const FixedColumnWidth(50.0),
-    3: const FixedColumnWidth(50.0),
-    4: const FixedColumnWidth(50.0),
-    5: const FixedColumnWidth(50.0),
-    6: const FixedColumnWidth(40.0),
-    7: const FixedColumnWidth(40.0),
-    8: const FixedColumnWidth(40.0),
-    9: const FixedColumnWidth(40.0),
-    10: const FixedColumnWidth(50.0),
-    11: const FixedColumnWidth(70.0),
-  };
   final border = TableBorder.all(color: Colors.white60);
   List<double> thickList = [2, 3, 3.5, 4, 5, 6, 8, 10, 12, 15];
   List<Map<String, dynamic>> tableValues = [];
@@ -93,6 +79,9 @@ class _TableHeaderState extends State<TableHeader> {
       case 12:
         return double.parse(rates['12mm'].toString());
 
+      case 15:
+        return double.parse(rates['12mm'].toString());
+
       default:
         return 0;
     }
@@ -130,6 +119,12 @@ class _TableHeaderState extends State<TableHeader> {
           if (isKaccha) {
             chargeL = (3 - (actL % 3));
             chargeB = (3 - (actB % 3));
+            if (chargeL == 3) {
+              chargeL = 0;
+            }
+            if (chargeB == 3) {
+              chargeB = 0;
+            }
           } else {
             chargeL = 1.26;
             chargeB = 1.26;
@@ -139,6 +134,12 @@ class _TableHeaderState extends State<TableHeader> {
           if (isKaccha) {
             chargeL = (3 - (actL % 3));
             chargeB = (3 - (actB % 3));
+            if (chargeL == 3) {
+              chargeL = 0;
+            }
+            if (chargeB == 3) {
+              chargeB = 0;
+            }
           } else {
             chargeL = 32;
             chargeB = 32;
@@ -289,10 +290,48 @@ class _TableHeaderState extends State<TableHeader> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    getColumnWidth() {
+      if (screenWidth < 450) {
+        double multiFactor = 565 / screenWidth;
+        return {
+          0: FixedColumnWidth(27.0 * multiFactor),
+          1: FixedColumnWidth(42.0 * multiFactor),
+          2: FixedColumnWidth(42.0 * multiFactor),
+          3: FixedColumnWidth(42.0 * multiFactor),
+          4: FixedColumnWidth(42.0 * multiFactor),
+          5: FixedColumnWidth(42.0 * multiFactor),
+          6: FixedColumnWidth(32.0 * multiFactor),
+          7: FixedColumnWidth(32.0 * multiFactor),
+          8: FixedColumnWidth(32.0 * multiFactor),
+          9: FixedColumnWidth(32.0 * multiFactor),
+          10: FixedColumnWidth(42.0 * multiFactor),
+          11: FixedColumnWidth(62.0 * multiFactor),
+        };
+      } else {
+        double multiFactor = screenWidth / 565;
+        return {
+          0: FixedColumnWidth(27.0 * multiFactor),
+          1: FixedColumnWidth(42.0 * multiFactor),
+          2: FixedColumnWidth(42.0 * multiFactor),
+          3: FixedColumnWidth(42.0 * multiFactor),
+          4: FixedColumnWidth(42.0 * multiFactor),
+          5: FixedColumnWidth(42.0 * multiFactor),
+          6: FixedColumnWidth(32.0 * multiFactor),
+          7: FixedColumnWidth(32.0 * multiFactor),
+          8: FixedColumnWidth(32.0 * multiFactor),
+          9: FixedColumnWidth(32.0 * multiFactor),
+          10: FixedColumnWidth(42.0 * multiFactor),
+          11: FixedColumnWidth(62.0 * multiFactor),
+        };
+      }
+    }
+
     return Column(
       children: [
         Table(
-          columnWidths: columnWidth,
+          columnWidths: getColumnWidth(),
           border: border,
           children: [
             const TableRow(
@@ -315,7 +354,7 @@ class _TableHeaderState extends State<TableHeader> {
           ],
         ),
         Table(
-          columnWidths: columnWidth,
+          columnWidths: getColumnWidth(),
           border: border,
           children: [
             TableRow(

@@ -7,19 +7,42 @@ class TableTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    getColumnWidth() {
+      if (screenWidth < 450) {
+        double multiFactor = 565 / screenWidth;
+        return {
+          0: FixedColumnWidth(27.0 * multiFactor),
+          1: FixedColumnWidth(84.0 * multiFactor),
+          2: FixedColumnWidth(84.0 * multiFactor),
+          3: FixedColumnWidth(42.0 * multiFactor),
+          4: FixedColumnWidth(32.0 * multiFactor),
+          5: FixedColumnWidth(32.0 * multiFactor),
+          6: FixedColumnWidth(32.0 * multiFactor),
+          7: FixedColumnWidth(32.0 * multiFactor),
+          8: FixedColumnWidth(42.0 * multiFactor),
+          9: FixedColumnWidth(62.0 * multiFactor),
+        };
+      } else {
+        double multiFactor = screenWidth / 565;
+        return {
+          0: FixedColumnWidth(27.0 * multiFactor),
+          1: FixedColumnWidth(84.0 * multiFactor),
+          2: FixedColumnWidth(84.0 * multiFactor),
+          3: FixedColumnWidth(42.0 * multiFactor),
+          4: FixedColumnWidth(32.0 * multiFactor),
+          5: FixedColumnWidth(32.0 * multiFactor),
+          6: FixedColumnWidth(32.0 * multiFactor),
+          7: FixedColumnWidth(32.0 * multiFactor),
+          8: FixedColumnWidth(42.0 * multiFactor),
+          9: FixedColumnWidth(62.0 * multiFactor),
+        };
+      }
+    }
+
     return Table(
-      columnWidths: const {
-        0: FixedColumnWidth(35.0),
-        1: FixedColumnWidth(100.0),
-        2: FixedColumnWidth(100.0),
-        3: FixedColumnWidth(50.0),
-        4: FixedColumnWidth(40.0),
-        5: FixedColumnWidth(40.0),
-        6: FixedColumnWidth(40.0),
-        7: FixedColumnWidth(40.0),
-        8: FixedColumnWidth(50.0),
-        9: FixedColumnWidth(70.0),
-      },
+      columnWidths: getColumnWidth(),
       border: TableBorder.all(color: Colors.white),
       children: [
         TableRow(
