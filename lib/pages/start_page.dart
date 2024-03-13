@@ -47,13 +47,13 @@ class _StartPageState extends State<StartPage> {
           child: Center(
             child: Column(
               children: [
-                const Material(
+                Material(
                   elevation: 15,
                   shadowColor: Colors.amberAccent,
-                  shape: CircleBorder(),
+                  shape: const CircleBorder(),
                   child: CircleAvatar(
-                    radius: 150,
-                    backgroundImage: AssetImage('images/logo.png'),
+                    radius: (MediaQuery.of(context).size.width/2)-50,
+                    backgroundImage: const AssetImage('images/logo.png'),
                   ),
                 ),
                 const SizedBox(
